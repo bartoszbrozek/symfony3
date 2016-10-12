@@ -2,13 +2,36 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\Task;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class BartekController extends Controller {
+    /**
+     * @Route("/")
+     */
+    
+    public function newAction(Request $request) {
+        $task = new Task();
+
+        $task->setTaskName('Nowe zadanie');
+        $task->setDueDate(new \DateTime());
+
+        $form = $this->createFormBuilder($task)
+                ->add('taskName', TextType::class)
+                ->add('dueDate', DateType::class)
+                ->add('submit', SubmitType::class, ['label' => 'Utwórz zadanie'])
+                ->getForm();
+
+        return $this->render('default/new.html.twig', ['form' => $form->createView()]);
+    }
 
     /**
      * @Route("/bartek/{name}")
