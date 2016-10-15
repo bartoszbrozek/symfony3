@@ -1,3 +1,12 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+success:
+    path: /success
+        
+notes:
+    path: /notes
+
+delete:
+    path: /delete

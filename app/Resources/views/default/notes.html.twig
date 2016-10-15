@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ msg }}
+    <ul>
+        {% for note in notes %}
+            <li>
+                {{ note.content }}
+                <a href="{{ 'delete/'note.id_note }}">Usuń</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
