@@ -1,0 +1,59 @@
+body {
+    background-size: 100% 100%;
+    background-image: url('../images/bg-main.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.container {
+    background-color: #fff14d;
+    padding: 10px;
+    margin: 0px 100px 0px 100px;
+}
+
+.main-content {
+
+}
+
+.row {
+    padding: 10px 0px 10px 0px;
+    background-color: rgba(255, 247, 159, 0.61);
+}
+
+.row-xs {
+    width: 100%;
+    display: inline-block;
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+    background-color: rgba(100, 213, 247, 0.61);
+}
+
+.title {
+    font-size: larger;
+    width: 100%;
+}
+
+.column-80 {
+    float: left;
+    width: 80%;
+}
+
+.column-20 {
+    float: left;
+    width: 20%;
+}
+
+.options {
+    background-color:#449d44;
+
+}
+
+.vert-middle {
+    text-decoration: none;
+    vertical-align: -webkit-baseline-middle;
+}
+
+label {
+    width: 100%;
+    display: inline-block;
+}

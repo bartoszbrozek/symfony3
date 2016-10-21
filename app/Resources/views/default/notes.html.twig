@@ -1,13 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ msg }}
-    <ul>
+    <div class="row">
+        {{ msg }}
         {% for note in notes %}
-            <li>
-                {{ note.content }}
-                <a href="{{ 'delete/'note.id_note }}">Usuń</a>
-            </li>
+            <div class="row-xs">
+                <div class="title">
+                    {{ note.title }}
+                </div>
+                <div class="column-80">
+                    {{ note.content }}
+                </div>
+                <a href="{{ path ('delete', {'id': note.id_note}) }}" class="vert-middle">
+                    <div class="column-20 options">
+                        Usuń
+                    </div>
+                </a>
+            </div>
         {% endfor %}
-    </ul>
+
+        <a href="{{ path ('add') }}">Dodaj notatkę</a>
+    </div>
 {% endblock %}

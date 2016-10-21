@@ -2,11 +2,20 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
+main:
+    path: /
+
 success:
     path: /success
         
 notes:
     path: /notes
 
+add:
+    path: /add
+
 delete:
-    path: /delete
+    path: /notes/delete/{id}
+    
+edit:
+    path: /notes/edit/{id}

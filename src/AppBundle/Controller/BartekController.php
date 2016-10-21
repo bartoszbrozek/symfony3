@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,17 +18,18 @@ use Symfony\Component\HttpFoundation\Request;
 class BartekController extends Controller {
 
     /**
-     * @Route("/")
+     * @Route("/add")
      */
     public function newAction(Request $request) {
         $task = new Task();
 
-        $task->setTaskName('Nowe zadanie');
-        $task->setDueDate(new \DateTime());
+        $task->setTitle('Nowe zadanie');
+        $task->setDate(new \DateTime());
 
         $form = $this->createFormBuilder($task)
-                ->add('taskName', TextType::class)
-                ->add('dueDate', DateType::class)
+                ->add('title', TextType::class)
+                ->add('content', TextareaType::class)
+                ->add('date', DateType::class)
                 ->add('submit', SubmitType::class, ['label' => 'Utwórz zadanie'])
                 ->getForm();
 
@@ -36,20 +38,23 @@ class BartekController extends Controller {
         if ($form->isValid() && $form->isSubmitted()) {
             $task = $form->getData();
 
+            var_dump($task);
+
             $pdo = $this->container->get('db1');
 
-            $query = $pdo->prepare("INSERT INTO notes (content, date) VALUES (?,?)");
-            $query->bindValue(1, $task->getTaskName());
-            $query->bindValue(2, $task->getDueDate()->format("Y-m-d H:i:m"));
+            $query = $pdo->prepare("INSERT INTO notes (title, content, date) VALUES (?,?,?)");
+            $query->bindValue(1, $task->getTitle());
+            $query->bindValue(2, $task->getContent());
+            $query->bindValue(3, $task->getDate()->format("Y-m-d H:i:m"));
 
             $query->execute();
 
-            echo $task->getTaskName();
-            echo $task->getDueDate()->format("Y-m-d");
+            echo $task->getTitle();
+            echo $task->getDate()->format("Y-m-d");
             return $this->redirectToRoute('success');
         }
 
-        return $this->render('default/new.html.twig', ['form' => $form->createView()]);
+        return $this->render('default/form-addNote.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -118,6 +123,21 @@ class BartekController extends Controller {
         $query->execute();
 
         return $this->redirectToRoute("notes", ['msg' => 'Usunięto notatkę!']);
+    }
+
+    /**
+     * @Route("/notes/edit")
+     */
+    public function editNote($id) {
+        $task = new Task();
+
+
+
+        $notes = $this->createFormBuilder($task)
+                ->add('taskName', TextType::class)
+                ->add('dueDate', DateType::class)
+                ->add('submit', SubmitType::class, ['label' => 'Utwórz zadanie'])
+                ->getForm();
     }
 
 }

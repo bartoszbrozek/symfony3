@@ -4,23 +4,32 @@ namespace AppBundle\Entity;
 
 class Task {
 
-    protected $taskName;
-    protected $dueDate;
+    protected $title;
+    protected $date;
+    protected $content;
 
-    function getTaskName() {
-        return $this->taskName;
+    function getTitle() {
+        return $this->title;
     }
 
-    function getDueDate() {
-        return $this->dueDate;
+    function getDate() {
+        return $this->date;
     }
 
-    function setTaskName($taskName) {
-        $this->taskName = $taskName;
+    function getContent() {
+        return $this->content;
     }
 
-    function setDueDate(\DateTime $dueDate) {
-        $this->dueDate = $dueDate;
+    function setTitle($title) {
+        $this->title = $title;
+    }
+
+    function setDate(\DateTime $date) {
+        $this->date = $date;
+    }
+
+    function setContent($content) {
+        $this->content = $content;
     }
 
 }
